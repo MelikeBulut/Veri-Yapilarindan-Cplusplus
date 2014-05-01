@@ -1,0 +1,52 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#define COMPARE(x, y) ((x)<(y) ? -1 : (y)<(x) ? 1 : 0)
+
+using namespace std;
+
+int binsearch(int[], int, int, int);
+
+int main()
+{
+    int i, j, n, searchnum;
+
+    cout << "Enter number of elements: ";
+    cin >> n;
+
+    int *list = (int *) malloc(sizeof(int) * n);
+
+    cout << endl << "Enter " << n << "integers:" << endl;
+    for(i=0; i<n; i++)
+        cin >> list[i];
+
+    cout << endl << "Enter value to find: ";
+    cin >> searchnum;
+
+    j = binsearch(list, searchnum, 0, (n-1));
+    cout << endl << "Index of " << searchnum << " is " << j << endl;
+
+    return 0;
+}
+//ITERATIF
+int binsearch(int list[], int searchnum, int left, int right)
+{
+    int middle;
+
+    while(left <= right)
+    {
+        middle = (left + right) / 2;
+
+        switch(COMPARE(list[middle], searchnum))
+        {
+        case -1:
+            left = middle + 1;
+            break;
+        case  0:
+            return middle;
+        case  1:
+            right = middle - 1;
+        }
+    }
+    return -1;
+}
